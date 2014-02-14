@@ -168,8 +168,8 @@ public class TupleDescTest extends SimpleDbTestBase {
      * Unit test for TupleDesc.toString()
      */
     @Test public void toStringTest() {
-        TupleDesc intString = new TupleDesc(new Type[]{Type.INT_TYPE, Type.STRING_TYPE});
-        assertTrue("INT_TYPE|STRING_TYPE".equals(intString.toString()));
+        TupleDesc intString = new TupleDesc(new Type[]{Type.INT_TYPE, Type.STRING_TYPE}, new String[]{"ID", "Name"});
+        assertTrue("INT_TYPE(ID)|STRING_TYPE(Name)".equals(intString.toString()));
     }
 
     /**
