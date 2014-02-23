@@ -89,7 +89,9 @@ public class Tuple {
     public String toString() {
         String myString = "";
         for(int i = 0; i < fields.length; i++){
-        	myString += fields[i]+"|";
+        	myString += fields[i];
+        	if (i != fields.length -1 )
+        		myString += "|";
         }
         return myString;
     }

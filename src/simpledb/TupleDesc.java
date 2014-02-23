@@ -167,7 +167,10 @@ public class TupleDesc {
     	String myString = "";
         // return type and name string
     	for(int i = 0; i < types.length; i++ ){
-    		myString += types[i]+"("+names[i] +")|";
+    		myString += types[i]+"("+names[i] +")";
+    		
+    		if (i != types.length-1)
+    			myString += "|";
     		
     	}
     	return myString;
