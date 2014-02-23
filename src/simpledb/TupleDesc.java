@@ -114,8 +114,11 @@ public class TupleDesc {
      * @throws NoSuchElementException if i is not a valid field reference.
      */
     public Type getType(int i) throws NoSuchElementException {
-        // some code goes here
-        throw new UnsupportedOperationException("Implement this");
+        //exception if type is empty, i out of bound, or i is negative
+    	if (types.length > 0 && types.length > i && i >= 0){
+    		return types[i];
+    	}
+        throw new NoSuchElementException("Could not identify type at position: "+ i);
     }
 
     /**
@@ -123,8 +126,12 @@ public class TupleDesc {
      * Note that tuples from a given TupleDesc are of a fixed size.
      */
     public int getSize() {
-        // some code goes here
-        throw new UnsupportedOperationException("Implement this");
+        // return the sum of len
+    	int size =0;
+    	for (int i = 0; i<types.length; i++){
+    		size += types[i].getLen();
+    	}
+    	return size;
     }
 
     /**
@@ -157,7 +164,13 @@ public class TupleDesc {
      * @return String describing this descriptor.
      */
     public String toString() {
-        // some code goes here
-        throw new UnsupportedOperationException("Implement this");
+    	String myString = "";
+        // return type and name string
+    	for(int i = 0; i < types.length; i++ ){
+    		myString += types[i]+"("+names[i] +")|";
+    		
+    	}
+    	return myString;
+        
     }
 }
