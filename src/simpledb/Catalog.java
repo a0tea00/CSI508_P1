@@ -82,8 +82,8 @@ public class Catalog {
      *     function passed to addTable
      */
     public TupleDesc getTupleDesc(int tableid) throws NoSuchElementException {
-        // some code goes here
-        throw new UnsupportedOperationException("Implement this");
+    	// get the pos of the file id then get the file by pos
+        return dbFiles.get(dbFileIds.indexOf(tableid)).getTupleDesc();
     }
 
     /**
@@ -93,8 +93,8 @@ public class Catalog {
      *     function passed to addTable
      */
     public DbFile getDbFile(int tableid) throws NoSuchElementException {
-        // some code goes here
-        throw new UnsupportedOperationException("Implement this");
+    	// get the pos of the file id then get the file by pos
+    	return dbFiles.get(dbFileIds.indexOf(tableid));
     }
 
     /** Delete all tables from the catalog */
