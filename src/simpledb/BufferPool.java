@@ -58,8 +58,17 @@ public class BufferPool {
      */
     public  Page getPage(TransactionId tid, PageId pid, Permissions perm)
         throws TransactionAbortedException, DbException {
-        // some code goes here
-        throw new UnsupportedOperationException("Implement this");
+        // look up hashtable with the key given by PageId
+    	Page myPage; ;
+    	if ((myPage = pages.get(pid)) != null)
+    		return myPage;
+    	if (pages.size() >= numPages)
+    		throw new DbException("Buff is full");
+    	
+    	myPage = (Database.getCatalog().getDbFile(pid.getTableId())).readPage(pid);
+    	
+    	return myPage;
+
     }
     
     /**
