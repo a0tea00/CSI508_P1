@@ -66,6 +66,7 @@ public class BufferPool {
     		throw new DbException("Buff is full");
     	
     	myPage = (Database.getCatalog().getDbFile(pid.getTableId())).readPage(pid);
+    	pages.put(pid, myPage);
     	
     	return myPage;
 
