@@ -63,9 +63,11 @@ public class HeapPage implements Page {
     /** Retrieve the number of tuples on this page.
         @return the number of tuples on this page
     */
-    private int getNumTuples() {        
-        // some code goes here
-        throw new UnsupportedOperationException("Implement this");
+    private int getNumTuples() {  
+    	//tupsPerPage = floor((BufferPool.PAGE SIZE * 8) / (tuple size * 8 + 1))
+       int numTuples = 0;
+       numTuples = (int)Math.floor( (Database.getBufferPool().PAGE_SIZE*8) / (td.getSize()*8+1) );
+       return numTuples;
     }
     
     /**
@@ -73,8 +75,8 @@ public class HeapPage implements Page {
      * @return the number of bytes in the header of a page in a HeapFile with each tuple occupying tupleSize bytes
      */
     private int getHeaderSize() {        
-        // some code goes here
-        throw new UnsupportedOperationException("Implement this");
+        //headerBytes = ceiling(tupsPerPage/8)
+    	return (int)Math.ceil(numSlots/8);
     }
     
     /** Return a view of this page before it was modified
@@ -300,8 +302,7 @@ public class HeapPage implements Page {
      * (note that this iterator shouldn't return tuples in empty slots!)
      */
     public Iterator<Tuple> iterator() {
-        // some code goes here
-        throw new UnsupportedOperationException("Implement this");
+    	
     }
 
 }
