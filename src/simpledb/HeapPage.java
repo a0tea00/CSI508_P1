@@ -301,8 +301,15 @@ public class HeapPage implements Page {
      * @return an iterator over all tuples on this page (calling remove on this iterator throws an UnsupportedOperationException)
      * (note that this iterator shouldn't return tuples in empty slots!)
      */
+    //This one is bugged. Fail to pass test run
     public Iterator<Tuple> iterator() {
+    	LinkedList<Tuple> itr =  new LinkedList<Tuple>();
     	
+    	for (int i = 0; i < header.length; i ++){
+    		if (header[i] != 0)
+    			itr.add(tuples[i]);
+    	}
+    	return (Iterator<Tuple>) itr;
     }
 
 }
