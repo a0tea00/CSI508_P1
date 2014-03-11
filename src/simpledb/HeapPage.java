@@ -76,7 +76,11 @@ public class HeapPage implements Page {
      */
     private int getHeaderSize() {        
         //headerBytes = ceiling(tupsPerPage/8)
-    	return (int)Math.ceil(numSlots/8);
+    	//fix the Math.ceil rounding problem
+		int finalnum = (int) Math.floor(numSlots/8);
+		if (numSlots%8 != 0)
+			finalnum += 1;
+    	return finalnum;
     }
     
     /** Return a view of this page before it was modified
@@ -304,18 +308,12 @@ public class HeapPage implements Page {
     
     //This one is bugged. Fail to pass test run
     public Iterator<Tuple> iterator() {
-    	int tPos = 0; //tracking the position of tuples[]
-    	LinkedList<Tuple> itr =  new LinkedList<Tuple>(); //use a LinkedList as iterable
+    	ArrayList<Tuple> itr =  new ArrayList<Tuple>(); //use a list as iterable
     	
-    	for (int i = 0; i < header.length; i ++){
-    	
-    			for (int j = 0; j < 8; j ++){ // each byte has 8 bits	
-    				
-	    			if ((header[i] & (1 << j)) != 0 && tPos < tuples.length) // if the bit is 1 and tPos is not over bound
-	    				itr.add(tuples[tPos]);
-	    			tPos ++; // move down tuples[]
-    			
-    			}
+    	for (int i = 0; i < numSlots; i ++){
+    		if (getSlot(i))
+    			itr.add(tuples[i]);
+
     	}
     	return (Iterator<Tuple>) itr;
     }
